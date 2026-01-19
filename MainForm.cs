@@ -549,31 +549,61 @@ internal class SubscriptionPanel : Panel
             BackColor = Color.Transparent
         };
 
+        // 捕获当前面板的弱引用，避免在面板销毁后访问
+        var weakPanel = new WeakReference(this);
+
         // 让标签将鼠标事件转发给父面板
         label.MouseDown += (s, e) =>
         {
-            // 将标签的坐标转换为面板坐标
-            var panelLocation = label.PointToScreen(e.Location);
-            var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - this.PointToScreen(Point.Empty).X, panelLocation.Y - this.PointToScreen(Point.Empty).Y, e.Delta);
-            this.OnMouseDown(panelArgs);
+            if (weakPanel.Target is SubscriptionPanel panel && !panel.IsDisposed && !label.IsDisposed)
+            {
+                try
+                {
+                    var panelLocation = label.PointToScreen(e.Location);
+                    var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - panel.PointToScreen(Point.Empty).X, panelLocation.Y - panel.PointToScreen(Point.Empty).Y, e.Delta);
+                    panel.OnMouseDown(panelArgs);
+                }
+                catch { }
+            }
         };
         label.MouseMove += (s, e) =>
         {
-            var panelLocation = label.PointToScreen(e.Location);
-            var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - this.PointToScreen(Point.Empty).X, panelLocation.Y - this.PointToScreen(Point.Empty).Y, e.Delta);
-            this.OnMouseMove(panelArgs);
+            if (weakPanel.Target is SubscriptionPanel panel && !panel.IsDisposed && !label.IsDisposed)
+            {
+                try
+                {
+                    var panelLocation = label.PointToScreen(e.Location);
+                    var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - panel.PointToScreen(Point.Empty).X, panelLocation.Y - panel.PointToScreen(Point.Empty).Y, e.Delta);
+                    panel.OnMouseMove(panelArgs);
+                }
+                catch { }
+            }
         };
         label.MouseUp += (s, e) =>
         {
-            var panelLocation = label.PointToScreen(e.Location);
-            var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - this.PointToScreen(Point.Empty).X, panelLocation.Y - this.PointToScreen(Point.Empty).Y, e.Delta);
-            this.OnMouseUp(panelArgs);
+            if (weakPanel.Target is SubscriptionPanel panel && !panel.IsDisposed && !label.IsDisposed)
+            {
+                try
+                {
+                    var panelLocation = label.PointToScreen(e.Location);
+                    var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - panel.PointToScreen(Point.Empty).X, panelLocation.Y - panel.PointToScreen(Point.Empty).Y, e.Delta);
+                    panel.OnMouseUp(panelArgs);
+                }
+                catch { }
+            }
         };
         label.MouseDoubleClick += (s, e) =>
         {
-            var panelLocation = label.PointToScreen(e.Location);
-            var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - this.PointToScreen(Point.Empty).X, panelLocation.Y - this.PointToScreen(Point.Empty).Y, e.Delta);
-            this.OnMouseDoubleClick(panelArgs);
+            if (weakPanel.Target is SubscriptionPanel panel && !panel.IsDisposed && !label.IsDisposed)
+            {
+                try
+                {
+                    var panelLocation = label.PointToScreen(e.Location);
+                    var panelArgs = new MouseEventArgs(e.Button, e.Clicks, panelLocation.X - panel.PointToScreen(Point.Empty).X, panelLocation.Y - panel.PointToScreen(Point.Empty).Y, e.Delta);
+                    panel.OnMouseDoubleClick(panelArgs);
+                }
+                catch { }
+            }
         };
 
         return label;
