@@ -50,7 +50,7 @@ public partial class MainForm : Form
         // 设置自定义托盘图标
         try
         {
-            string iconPath = Path.Combine(Application.StartupPath, "t1b8q-xnjs2-001.ico");
+            string iconPath = Path.Combine(Application.StartupPath, "Reminder.ico");
             if (File.Exists(iconPath))
             {
                 notifyIcon.Icon = new Icon(iconPath);

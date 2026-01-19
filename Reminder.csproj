@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>t1b8q-xnjs2-001.ico</ApplicationIcon>
+    <ApplicationIcon>Reminder.ico</ApplicationIcon>
     <StartupObject>Reminder.Program</StartupObject>
     <!-- 使用服务器 GC 模式，减少内存占用和 GC 暂停 -->
     <ServerGarbageCollection>true</ServerGarbageCollection>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="t1b8q-xnjs2-001.ico">
+    <Content Include="Reminder.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
