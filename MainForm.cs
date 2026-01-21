@@ -260,8 +260,10 @@ public partial class MainForm : Form
             return int.MaxValue; // 没有到期时间的排在最后
         }
 
-        var remaining = expiryDate.Value - DateTime.Now;
-        return (int)remaining.TotalDays;
+        // 按日期计算剩余天数，不考虑时间部分
+        var today = DateTime.Today;
+        var expiryDay = expiryDate.Value.Date;
+        return (int)(expiryDay - today).TotalDays;
     }
 
     private void CreateSubscriptionPanels()
@@ -734,15 +736,19 @@ internal class SubscriptionPanel : Panel
             return;
         }
 
-        var remaining = expiryDate.Value - DateTime.Now;
-        if (remaining.TotalSeconds <= 0)
+        // 按日期计算剩余天数，不考虑时间部分
+        var today = DateTime.Today;
+        var expiryDay = expiryDate.Value.Date;
+        var remainingDays = (int)(expiryDay - today).TotalDays;
+
+        if (remainingDays < 0)
         {
             _lblCountdown.Text = "已到期";
             _lblCountdown.ForeColor = Color.Red;
             return;
         }
 
-        _lblCountdown.Text = $"剩余: {remaining.Days}天";
+        _lblCountdown.Text = $"剩余: {remainingDays}天";
         _lblCountdown.ForeColor = Color.FromArgb(0, 255, 128);
     }
 }

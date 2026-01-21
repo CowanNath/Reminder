@@ -304,3 +304,7 @@ FodyWeavers.xsd
 # Application specific
 config.json
 *.db
+
+
+create-release.bat
+Reminder-v1.0.0.zip
