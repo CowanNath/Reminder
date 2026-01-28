@@ -219,12 +219,12 @@ public partial class MainForm : Form
         // 保存更新后的数据
         _configService.SaveSubscriptions(_subscriptions);
 
-        // 更新显示
+        // 更新显示 - 需要同步面板中的订阅对象引用
         this.BeginInvoke(() =>
         {
-            foreach (var panel in _subscriptionPanels)
+            for (int i = 0; i < _subscriptions.Count && i < _subscriptionPanels.Count; i++)
             {
-                panel.UpdateDisplay();
+                _subscriptionPanels[i].UpdateSubscription(_subscriptions[i]);
             }
         });
     }
@@ -484,7 +484,7 @@ public partial class MainForm : Form
 /// </summary>
 internal class SubscriptionPanel : Panel
 {
-    private readonly SubscriptionItem _subscription;
+    private SubscriptionItem _subscription;
     private readonly Label _lblName;
     private readonly Label _lblInfo1;
     private readonly Label _lblInfo2;
@@ -719,6 +719,15 @@ internal class SubscriptionPanel : Panel
 
         UpdateCountdown();
         AdjustHeight();
+    }
+
+    /// <summary>
+    /// 更新订阅对象引用（用于数据刷新后同步）
+    /// </summary>
+    public void UpdateSubscription(SubscriptionItem subscription)
+    {
+        _subscription = subscription;
+        UpdateDisplay();
     }
 
     public void UpdateCountdown()
